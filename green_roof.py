@@ -6,7 +6,7 @@ CLASS GREEN ROOF
 
 """
 
-# Librairies
+# Bibliothèque
 
 import numpy as np
 
