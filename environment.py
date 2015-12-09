@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 
 """
 
@@ -26,4 +26,8 @@ class Environment(object):
 
     def irradiance(self, time):
         """ Donne les radiations solaires (W/m^2) à un moment de la journée """
+        return 0
+
+    def pression(self, time):
+        """ Donne la pression à un moment de la journée """
         return 0
