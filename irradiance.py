@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 
 class Irradiance():
     """ La classe irradiance va permettre d'extraire l'irradiance au point donné"""
@@ -19,4 +19,4 @@ class Irradiance():
         return point
 
     def extraire_LW(self):
-        
+        return 0
