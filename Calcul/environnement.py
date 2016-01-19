@@ -10,7 +10,7 @@ class Environnement(object):
     Les données environnementales pour faire le calcul de la consommation.
     """
 
-    def __init__(self, longitude, latitude, mois, jour):
+    def __init__(self, latitude, longitude, mois, jour):
         """ Initialise l'environment avec la localisation et la date """
         self.longitude = longitude
         self.latitude = latitude
@@ -21,15 +21,15 @@ class Environnement(object):
 
     def extraire_temp(self):
         """ Extrait les donnes meteos sur la temperature """
-        return donnees.get_t()
+        return self.donnees.get_t()
 
     def extraire_pres(self):
         """ Extrait les donnes meteos sur la temperature """
-        return donnees.get_pres()
+        return self.donnees.get_pres()
 
     def extraire_humi(self):
         """ Extrait les donnes meteos sur la temperature """
-        return donnees.get_humidite()
+        return self.donnees.get_humidite()
 
     def extraire_irr(self):
         """ Extrait les donnes meteos sur l'irradiance """
@@ -38,5 +38,5 @@ class Environnement(object):
         return i.extraire_irradiance()
 
 if __name__ == "__main__":
-    ev = Environnement(5.75, 45.1333, 11, 10)
-    print(ev.extraire_temp)
+    ev = Environnement(48.8534100, 2.3488000, 10, 10)
+    print(ev.extraire_temp())

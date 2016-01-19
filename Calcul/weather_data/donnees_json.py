@@ -11,14 +11,18 @@ CLASS DONNEES METEO - DONNEES JSON
 
 import csv
 import json
-from lambert93 import convert_coord
+import math
+from os import path
+from .lambert93 import convert_coord
 
+ressources_dir = path.join(path.dirname(__file__), 'ressources')
+data_base_dir = path.join(path.dirname(__file__), 'data_base')
 
 def detecte_IDstation():
     # Stock dans un dictionnaire les longitudes, latitues et les ID des 
     # stations correspondantes
     dico = {}
-    with open('postesSynop.json') as file:
+    with open(path.join(ressources_dir, 'postesSynop.json')) as file:
             doc=json.load(file)
             fichier_courant = doc["features"]
             for station in fichier_courant:
@@ -73,7 +77,7 @@ class DonneesMeteo(object):
         jour = self.jour
         ID = self.ID
         s = 'synop.{}{}.csv.gz'.format(annee, mois)
-        with open(s) as csvfile:
+        with open(path.join(data_base_dir, s)) as csvfile:
             doc = csv.reader(csvfile, delimiter = ';')
             temp = []
             for row in doc:
@@ -83,7 +87,7 @@ class DonneesMeteo(object):
                         strheure = str(carac) + '0000'
                     else:
                         strheure = '0' + str(carac) + '0000'
-                    if row[1] == '2014' + '12' + jour + strheure and row[0] == ID: 
+                    if row[1] == annee + mois + jour + strheure and row[0] == ID: 
                         if row[7] == 'mq':
                             raise ValeurNonCommuniquee
                         temp.append(row[7])
@@ -96,7 +100,7 @@ class DonneesMeteo(object):
         jour = self.jour
         ID = self.ID
         s = 'synop.{}{}.csv.gz'.format(annee, mois)    
-        with open(s) as csvfile:
+        with open(path.join(data_base_dir, s)) as csvfile:
             doc = csv.reader(csvfile, delimiter = ';')
             pres = []
             for row in doc:
@@ -119,7 +123,7 @@ class DonneesMeteo(object):
         jour = self.jour
         ID = self.ID
         s = 'synop.{}{}.csv.gz'.format(annee, mois)
-        with open(s) as csvfile:
+        with open(path.join(data_base_dir, s)) as csvfile:
             doc = csv.reader(csvfile, delimiter = ';')
             humidite = []
             for row in doc:

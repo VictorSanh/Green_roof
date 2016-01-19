@@ -11,7 +11,10 @@ CLASSE IRRADIANCE - UTILISEE DANS ENVIRONNEMENT
 
 import subprocess
 import math
+from os import path
 
+
+code_fortran_dir = path.join(path.dirname(__file__), 'code_fortran')
 
 class Irradiance():
     """ La classe irradiance va permettre d'extraire l'irradiance au point donné"""
