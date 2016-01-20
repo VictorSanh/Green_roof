@@ -2,25 +2,36 @@
 
 PROGRAM PLOT_VAR
 !----------------------------------------------------------------------
-!Adrien Napoly 10/12/2015
+! Eida  10/12/2015
 !----------------------------------------------------------------------
 IMPLICIT NONE
  CHARACTER*100              :: CREPOUT='TXT/'   ! repertoire de sortie
  CHARACTER*1000             :: fichier,FORCAGE,POINT
+ CHARACTER*100              :: PATH
  INTEGER                    :: J
  REAL,DIMENSION(8760)       :: Z
  REAL,DIMENSION(8760)       :: Y
 
+ INTEGER :: i
+ CHARACTER(len=32) :: arg
+          
+ DO i = 1, iargc()
+    CALL getarg(i, arg)
+    WRITE (*,*) arg
+ END DO
+
 
  ! A modifier
  POINT = '1'
- 
+ PATH = ' '
+
+ READ (*,'(A)') PATH
  READ *, POINT
 
 
  !Pas touche à partir d'ici
 
- fichier='FORCAGE/Forc_LW.bin_france_2013_2014'
+ fichier= trim(PATH)//'FORCAGE/Forc_LW.bin_france_2013_2014'
  OPEN(UNIT=10,FILE=fichier,STATUS='OLD',FORM='UNFORMATTED', ACCESS='DIRECT'&
 	,CONVERT='BIG_ENDIAN',RECL=9892*4)
 
@@ -31,7 +42,7 @@ IMPLICIT NONE
 
  CLOSE(UNIT=10)
  
- fichier='FORCAGE/Forc_SW.bin_france_2013_2014'
+ fichier=trim(PATH)//'FORCAGE/Forc_SW.bin_france_2013_2014'
  OPEN(UNIT=20,FILE=fichier,STATUS='OLD',FORM='UNFORMATTED', ACCESS='DIRECT'&
 	,CONVERT='BIG_ENDIAN',RECL=9892*4)
 
@@ -47,8 +58,6 @@ IMPLICIT NONE
  WRITE(11,*)Z(J)+Y(J)
  ENDDO
  CLOSE(UNIT=11)
-
-
 
 END PROGRAM PLOT_VAR
 

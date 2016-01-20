@@ -93,6 +93,3 @@ class GreenRoof(object):
         for s in np.linspace(time1, time2, 10000):
 
         return consommation
-    
-    
-    

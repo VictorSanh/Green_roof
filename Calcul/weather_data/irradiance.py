@@ -61,6 +61,7 @@ class Irradiance():
         au point qui nous interresse"""
         s = '{}'.format(self.point())
         proc = subprocess.Popen([".\plot_variable.exe"], stdin=subprocess.PIPE)
+        proc.stdin.write(code
         proc.stdin.write((s + "\n").encode())
         proc.stdin.close()
         proc.wait()
