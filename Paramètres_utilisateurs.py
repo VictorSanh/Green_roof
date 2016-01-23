@@ -2,6 +2,7 @@
 
 #Programme générant fenêtre graphique pour récupérer les données utilisateurs
 
+from Roof_model import Environnement, GreenRoof
 from PyQt4 import QtCore, QtGui
 
 try:
@@ -50,7 +51,9 @@ class Ui_Param(object):
         ParamWindow.setObjectName(_fromUtf8("ParamWindow"))
         ParamWindow.resize(824, 500)
         ParamWindow.setMouseTracking(True)
-
+        
+        self.latlng= = latlng
+        
         self.monBackground = QtGui.QLabel(ParamWindow)
         self.monBackground.setGeometry(QtCore.QRect(0, 0, 824, 500))
         self.monBackground.setMinimumSize(QtCore.QSize(824, 500))
@@ -235,14 +238,17 @@ class Ui_Param(object):
         self.comboBox_touffu.setItemText(4, _translate("ParamWindow", "Très Touffu", None))
         
     def requete(self):
-        self.temp_rentree = float(self.temp_int.text()) + 273
-        self.hauteur_rentree = float(self.hauteur.text())
-        self.mois_rentree = int(convert_mois(self.mois.text()))
-        self.epaiss_rentree = float(self.epaiss_toit.text()*10)
-        self.touffu_rentree = int(convert_touffu(self.touffu.text()))
-        self.surface_rentree = float(self.surface.text())
-
-
+        temp_rentree = float(self.temp_int.text()) + 273
+        hauteur_rentree = float(self.hauteur.text())
+        mois_rentree = int(convert_mois(self.mois.text()))
+        epaiss_rentree = float(self.epaiss_toit.text()*10)
+        touffu_rentree = int(convert_touffu(self.touffu.text()))
+        surface_rentree = float(self.surface.text())
+        
+        env = Environnement(self.latlng['lng'], self.latlng['lat'], mois_rentree, 15)
+        roof = GreenRoof(2/3*epaiss_rentree, 1/3*epaiss_rentree, 0.05, touffu_rentree, temp_rentree)      
+        print(roof.calcule_diff_finies_lentes(env))
+        
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
