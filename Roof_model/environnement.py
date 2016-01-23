@@ -22,6 +22,6 @@ class Environnement(DonneesMeteo, Irradiance):
 
 
 if __name__ == "__main__":
-    ev = Environnement(48.8534100, 2.3488000, 10, 10)
+    ev = Environnement(48.8534100, 2.3488000, 2, 2)
     print(ev.get_t())
     print(ev.get_irradiance())

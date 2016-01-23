@@ -62,11 +62,20 @@ class DonneesMeteo(object):
 
     def __init__(self, longitude, latitude, mois, jour):
         """ Initialise l'environment avec la localisation et la date """
-        self.strmois = str(mois)
+        
+        
+        # conversion mois
+        if (jour < 10):
+            self.strmois = '0' + '{}'.format(mois)
+        else:
+            self.strmois = str(mois)
+
+        #conversion jour
         if (jour < 10):
             self.strjour = '0' + '{}'.format(jour)
         else:
             self.strjour = str(jour)
+
         self.strannee = str(2014)
         self.ID = repere_station(latitude, longitude)
 
