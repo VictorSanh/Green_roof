@@ -2,8 +2,8 @@
 
 #Programme générant fenêtre graphique pour récupérer les données utilisateurs
 
-#from Roof_model import weather_data
-#from Roof_model import Environnement, GreenRoof
+from Roof_model import weather_data
+from Roof_model import Environnement, GreenRoof
 from PyQt4 import QtCore, QtGui
 
 try:
@@ -248,9 +248,9 @@ class Ui_Param(object):
         touffu_rentree = int(convert_touffu(str(self.comboBox_touffu.currentText())))
         surface_rentree = float(self.doubleSpinBox_surf.value())
         
-#        env = Environnement(self.latlng['lng'], self.latlng['lat'], mois_rentree, 15)
-#        roof = GreenRoof(2/3*epaiss_rentree, 1/3*epaiss_rentree, 0.05, touffu_rentree, temp_rentree)      
-#        print(roof.calcule_diff_finies_lentes(env))
+        env = Environnement(self.latlng['lng'], self.latlng['lat'], mois_rentree, 15)
+        roof = GreenRoof(2/3*epaiss_rentree, 1/3*epaiss_rentree, 0.05, touffu_rentree, temp_rentree)      
+        print(roof.calcule_diff_finies_lentes(env))
         
 if __name__ == "__main__":
     import sys
