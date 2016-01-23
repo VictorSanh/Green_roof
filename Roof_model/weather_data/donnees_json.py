@@ -65,7 +65,7 @@ class DonneesMeteo(object):
         
         
         # conversion mois
-        if (jour < 10):
+        if (mois < 10):
             self.strmois = '0' + '{}'.format(mois)
         else:
             self.strmois = str(mois)
