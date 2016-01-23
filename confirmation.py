@@ -7,8 +7,8 @@
 #
 # WARNING! All changes made in this file will be lost!
 
+import parametres_utilisateur
 from PyQt4 import QtCore, QtGui
-import geolocalisation
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -25,7 +25,7 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_Confirmation(object):
-    def setupUi(self, Confirmation, adresseGoogleFormated):
+    def setupUi(self, Confirmation, adresseGoogleFormated, latlng):
         Confirmation.setObjectName(_fromUtf8("Confirmation"))
         Confirmation.setEnabled(True)
         Confirmation.resize(500, 300)
@@ -49,7 +49,8 @@ class Ui_Confirmation(object):
 "border-top-color: rgb(121, 255, 229);\n"
 "border-radius: 10px;"))
         self.bonneAdresse.setObjectName(_fromUtf8("bonneAdresse"))
-#        self.bonneAdresse.clicked.connect(lambda: renvoiLatLong())
+        self.bonneAdresse.clicked.connect(Confirmation.close)
+        self.bonneAdresse.clicked.connect(lambda: self.paramUtilisateur(latlng))
         
         self.preciserAdresse = QtGui.QPushButton(Confirmation)
         self.preciserAdresse.setGeometry(QtCore.QRect(290, 240, 201, 51))
@@ -79,16 +80,19 @@ class Ui_Confirmation(object):
         self.bonneAdresse.setText(_translate("Confirmation", "C\'est la bonne adresse !", None))
         self.preciserAdresse.setText(_translate("Confirmation", "Préciser mon adresse...", None))
         self.printAdresse.setText(_translate("Confirmation", adresseGoogleFormated, None))
+        
+    def paramUtilisateur(self, latlng):        
+        paramWindow = QtGui.QDialog()
+        ui = parametres_utilisateur.Ui_Param()
+        ui.setupUi(paramWindow, latlng)
+        paramWindow.exec_() 
 
-    def renvoiLatLong(self, fichier, pos):
-        geolocalisation.lat_lng(fichier, pos)
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    Confirmation = QtGui.QDialog()
-    ui = Ui_Confirmation()
-    ui.setupUi(Confirmation,"Ceci est un test.")
-    Confirmation.show()
-    sys.exit(app.exec_())
+#if __name__ == "__main__":
+#    import sys
+#    app = QtGui.QApplication(sys.argv)
+#    Confirmation = QtGui.QDialog()
+#    ui = Ui_Confirmation()
+#    ui.setupUi(Confirmation,"Ceci est un test.")
+#    Confirmation.show()
+#    sys.exit(app.exec_())
 
