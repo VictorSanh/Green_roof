@@ -45,21 +45,25 @@ def convert_touffu(hirsuitude):
     }
     return switcher.get(hirsuitude)
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(824, 500)
-        MainWindow.setMouseTracking(True)
-        MainWindow.setStyleSheet(_fromUtf8("background-image : url(Image_Background_Green_Roof.jpg);\n"
-"background-repeat: no-repeat;\n"
-"background-size: cover;\n"
-""))
-        MainWindow.setDocumentMode(True)
-        self.centralwidget = QtGui.QWidget(MainWindow)
-        self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
-        self.pushButton = QtGui.QPushButton(self.centralwidget)
+class Ui_Param(object):
+    def setupUi(self, ParamWindow, latlng):
+        ParamWindow.setObjectName(_fromUtf8("ParamWindow"))
+        ParamWindow.resize(824, 500)
+        ParamWindow.setMouseTracking(True)
+
+        self.monBackground = QtGui.QLabel(ParamWindow)
+        self.monBackground.setGeometry(QtCore.QRect(0, 0, 824, 500))
+        self.monBackground.setMinimumSize(QtCore.QSize(824, 500))
+        self.monBackground.setMaximumSize(QtCore.QSize(824, 500))
+#        self.monBackground.setText(_fromUtf8(""))
+        self.monBackground.setPixmap(QtGui.QPixmap(_fromUtf8("donnees.jpg")))
+        self.monBackground.setScaledContents(True)
+        self.monBackground.setWordWrap(False)
+        self.monBackground.setObjectName(_fromUtf8("monBackground"))
+
+        self.pushButton = QtGui.QPushButton(ParamWindow)
         self.pushButton.setGeometry(QtCore.QRect(430, 400, 121, 51))
-        self.pushButton.setStyleSheet(_fromUtf8("background-color: rgb(255, 170, 0);\n"
+        self.pushButton.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 204);\n"
 "color: rgb(255, 255, 255);\n"
 "font: 75 28pt \"Calibri\";\n"
 "border-top-color: rgb(121, 255, 229);\n"
@@ -68,9 +72,9 @@ class Ui_MainWindow(object):
         
         
         
-        self.temp_int = QtGui.QPushButton(self.centralwidget)
+        self.temp_int = QtGui.QPushButton(ParamWindow)
         self.temp_int.setGeometry(QtCore.QRect(60, 10, 540, 51))
-        self.temp_int.setStyleSheet(_fromUtf8("background-color: rgb(255, 170, 0);\n"
+        self.temp_int.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 204);\n"
 "color: rgb(255, 255, 255);\n"
 "font: 75 28pt \"Calibri\";\n"
 "border-top-color: rgb(121, 255, 229);\n"
@@ -78,9 +82,9 @@ class Ui_MainWindow(object):
         self.temp_int.setObjectName(_fromUtf8("temp_int"))  
         
         
-        self.hauteur = QtGui.QPushButton(self.centralwidget)
+        self.hauteur = QtGui.QPushButton(ParamWindow)
         self.hauteur.setGeometry(QtCore.QRect(60, 70, 400, 51))
-        self.hauteur.setStyleSheet(_fromUtf8("background-color: rgb(255, 170, 0);\n"
+        self.hauteur.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 204);\n"
 "color: rgb(255, 255, 255);\n"
 "font: 75 28pt \"Calibri\";\n"
 "border-top-color: rgb(121, 255, 229);\n"
@@ -88,9 +92,9 @@ class Ui_MainWindow(object):
         self.hauteur.setObjectName(_fromUtf8("hauteur"))
         
         
-        self.mois = QtGui.QPushButton(self.centralwidget)
+        self.mois = QtGui.QPushButton(ParamWindow)
         self.mois.setGeometry(QtCore.QRect(60, 130, 110, 51))
-        self.mois.setStyleSheet(_fromUtf8("background-color: rgb(255, 170, 0);\n"
+        self.mois.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 204);\n"
 "color: rgb(255, 255, 255);\n"
 "font: 75 28pt \"Calibri\";\n"
 "border-top-color: rgb(121, 255, 229);\n"
@@ -98,9 +102,9 @@ class Ui_MainWindow(object):
         self.mois.setObjectName(_fromUtf8("mois"))
         
         
-        self.epaiss_toit = QtGui.QPushButton(self.centralwidget)
+        self.epaiss_toit = QtGui.QPushButton(ParamWindow)
         self.epaiss_toit.setGeometry(QtCore.QRect(60, 190, 425, 51))
-        self.epaiss_toit.setStyleSheet(_fromUtf8("background-color: rgb(255, 170, 0);\n"
+        self.epaiss_toit.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 204);\n"
 "color: rgb(255, 255, 255);\n"
 "font: 75 28pt \"Calibri\";\n"
 "border-top-color: rgb(121, 255, 229);\n"
@@ -108,9 +112,9 @@ class Ui_MainWindow(object):
         self.epaiss_toit.setObjectName(_fromUtf8("epaiss_toit"))
         
         
-        self.touffu = QtGui.QPushButton(self.centralwidget)
+        self.touffu = QtGui.QPushButton(ParamWindow)
         self.touffu.setGeometry(QtCore.QRect(60, 250, 200, 51))
-        self.touffu.setStyleSheet(_fromUtf8("background-color: rgb(255, 170, 0);\n"
+        self.touffu.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 204);\n"
 "color: rgb(255, 255, 255);\n"
 "font: 75 28pt \"Calibri\";\n"
 "border-top-color: rgb(121, 255, 229);\n"
@@ -118,9 +122,9 @@ class Ui_MainWindow(object):
         self.touffu.setObjectName(_fromUtf8("touffu"))
         
         
-        self.surface = QtGui.QPushButton(self.centralwidget)
+        self.surface = QtGui.QPushButton(ParamWindow)
         self.surface.setGeometry(QtCore.QRect(60, 310, 250, 51))
-        self.surface.setStyleSheet(_fromUtf8("background-color: rgb(255, 170, 0);\n"
+        self.surface.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 204);\n"
 "color: rgb(255, 255, 255);\n"
 "font: 75 28pt \"Calibri\";\n"
 "border-top-color: rgb(121, 255, 229);\n"
@@ -128,7 +132,7 @@ class Ui_MainWindow(object):
         self.surface.setObjectName(_fromUtf8("surface"))
         
         
-        self.comboBox_mois = QtGui.QComboBox(self.centralwidget)
+        self.comboBox_mois = QtGui.QComboBox(ParamWindow)
         self.comboBox_mois.setGeometry(QtCore.QRect(610, 130, 141, 51))
         self.comboBox_mois.setObjectName(_fromUtf8("comboBox_mois"))
         self.comboBox_mois.addItem(_fromUtf8(""))
@@ -145,7 +149,7 @@ class Ui_MainWindow(object):
         self.comboBox_mois.addItem(_fromUtf8(""))
         
         
-        self.comboBox_touffu = QtGui.QComboBox(self.centralwidget)
+        self.comboBox_touffu = QtGui.QComboBox(ParamWindow)
         self.comboBox_touffu.setGeometry(QtCore.QRect(610, 250, 141, 51))
         self.comboBox_touffu.setObjectName(_fromUtf8("comboBox_touffu"))
         self.comboBox_touffu.addItem(_fromUtf8(""))
@@ -155,7 +159,7 @@ class Ui_MainWindow(object):
         self.comboBox_touffu.addItem(_fromUtf8(""))
         
         
-        self.doubleSpinBox_temp = QtGui.QDoubleSpinBox(self.centralwidget)
+        self.doubleSpinBox_temp = QtGui.QDoubleSpinBox(ParamWindow)
         self.doubleSpinBox_temp.setGeometry(QtCore.QRect(610, 10, 141, 51))
         self.doubleSpinBox_temp.setMaximum(30)
         self.doubleSpinBox_temp.setStyleSheet(_fromUtf8("background-color: rgb(161, 161, 161);\n"
@@ -165,7 +169,7 @@ class Ui_MainWindow(object):
         self.doubleSpinBox_temp.setObjectName(_fromUtf8("doubleSpinBox_temp"))
         
         
-        self.doubleSpinBox_haut = QtGui.QDoubleSpinBox(self.centralwidget)
+        self.doubleSpinBox_haut = QtGui.QDoubleSpinBox(ParamWindow)
         self.doubleSpinBox_haut.setGeometry(QtCore.QRect(610, 70, 141, 51))
         self.doubleSpinBox_haut.setMaximum(10)
         self.doubleSpinBox_haut.setStyleSheet(_fromUtf8("background-color: rgb(161, 161, 161);\n"
@@ -175,7 +179,7 @@ class Ui_MainWindow(object):
         self.doubleSpinBox_haut.setObjectName(_fromUtf8("doubleSpinBox_haut"))
         
         
-        self.doubleSpinBox_epaiss = QtGui.QDoubleSpinBox(self.centralwidget)
+        self.doubleSpinBox_epaiss = QtGui.QDoubleSpinBox(ParamWindow)
         self.doubleSpinBox_epaiss.setGeometry(QtCore.QRect(610, 190, 161, 51))
         self.doubleSpinBox_epaiss.setMaximum(150)
         self.doubleSpinBox_epaiss.setStyleSheet(_fromUtf8("background-color: rgb(161, 161, 161);\n"
@@ -185,7 +189,7 @@ class Ui_MainWindow(object):
         self.doubleSpinBox_epaiss.setObjectName(_fromUtf8("doubleSpinBox_epaiss"))
         
         
-        self.doubleSpinBox_surf = QtGui.QDoubleSpinBox(self.centralwidget)
+        self.doubleSpinBox_surf = QtGui.QDoubleSpinBox(ParamWindow)
         self.doubleSpinBox_surf.setGeometry(QtCore.QRect(610, 310, 161, 51))
         self.doubleSpinBox_surf.setMaximum(1000)
         self.doubleSpinBox_surf.setStyleSheet(_fromUtf8("background-color: rgb(161, 161, 161);\n"
@@ -193,73 +197,42 @@ class Ui_MainWindow(object):
 "font: 75 24pt \"MS Shell Dlg 2\";\n"
 "border-radius: 20px;"))
         self.doubleSpinBox_surf.setObjectName(_fromUtf8("doubleSpinBox_surf"))
-        
 
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 824, 21))
-        self.menubar.setObjectName(_fromUtf8("menubar"))
-        self.menuFds = QtGui.QMenu(self.menubar)
-        self.menuFds.setObjectName(_fromUtf8("menuFds"))
-        self.menuEdition = QtGui.QMenu(self.menubar)
-        self.menuEdition.setObjectName(_fromUtf8("menuEdition"))
-        self.menuA_propos = QtGui.QMenu(self.menubar)
-        self.menuA_propos.setObjectName(_fromUtf8("menuA_propos"))
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtGui.QStatusBar(MainWindow)
-        self.statusbar.setObjectName(_fromUtf8("statusbar"))
-        MainWindow.setStatusBar(self.statusbar)
-        self.actionFichier = QtGui.QAction(MainWindow)
-        self.actionFichier.setObjectName(_fromUtf8("actionFichier"))
-        self.actionNouveau = QtGui.QAction(MainWindow)
-        self.actionNouveau.setObjectName(_fromUtf8("actionNouveau"))
-        self.menuFds.addAction(self.actionNouveau)
-        self.menubar.addAction(self.menuFds.menuAction())
-        self.menubar.addAction(self.menuEdition.menuAction())
-        self.menubar.addAction(self.menuA_propos.menuAction())
+        self.retranslateUi(ParamWindow)
+        QtCore.QMetaObject.connectSlotsByName(ParamWindow)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
-        self.pushButton.setText(_translate("MainWindow", "Calcul", None))
+    def retranslateUi(self, ParamWindow):
+        ParamWindow.setWindowTitle(_translate("ParamWindow", "ParamWindow", None))
+        self.pushButton.setText(_translate("ParamWindow", "Calcul", None))
         
         
-        self.temp_int.setText(_translate("MainWindow", "Température intérieure (°C)", None))
-        self.hauteur.setText(_translate("MainWindow", "Hauteur du toit (m)", None))
-        self.mois.setText(_translate("MainWindow", "Mois", None))
-        self.epaiss_toit.setText(_translate("MainWindow", "Epaisseur du toit (cm)", None))
-        self.touffu.setText(_translate("MainWindow", "Hirsuitude", None))
-        self.surface.setText(_translate("MainWindow", "Surface (m²)", None))
+        self.temp_int.setText(_translate("ParamWindow", "Température intérieure (°C)", None))
+        self.hauteur.setText(_translate("ParamWindow", "Hauteur du toit (m)", None))
+        self.mois.setText(_translate("ParamWindow", "Mois", None))
+        self.epaiss_toit.setText(_translate("ParamWindow", "Epaisseur du toit (cm)", None))
+        self.touffu.setText(_translate("ParamWindow", "Hirsuitude", None))
+        self.surface.setText(_translate("ParamWindow", "Surface (m²)", None))
         
         
-        self.comboBox_mois.setItemText(0, _translate("MainWondow", "Janvier", None))
-        self.comboBox_mois.setItemText(1, _translate("MainWondow", "Février", None))
-        self.comboBox_mois.setItemText(2, _translate("MainWondow", "Mars", None))
-        self.comboBox_mois.setItemText(3, _translate("MainWondow", "Avril", None))
-        self.comboBox_mois.setItemText(4, _translate("MainWondow", "Mai", None))
-        self.comboBox_mois.setItemText(5, _translate("MainWondow", "Juin", None))
-        self.comboBox_mois.setItemText(6, _translate("MainWondow", "Juillet", None))
-        self.comboBox_mois.setItemText(7, _translate("MainWondow", "Août", None))
-        self.comboBox_mois.setItemText(8, _translate("MainWondow", "Septembre", None))
-        self.comboBox_mois.setItemText(9, _translate("MainWondow", "Octobre", None))
-        self.comboBox_mois.setItemText(10, _translate("MainWondow", "Novembre", None))
-        self.comboBox_mois.setItemText(11, _translate("MainWondow", "Décembre", None))
+        self.comboBox_mois.setItemText(0, _translate("ParamWindow", "Janvier", None))
+        self.comboBox_mois.setItemText(1, _translate("ParamWindow", "Février", None))
+        self.comboBox_mois.setItemText(2, _translate("ParamWindow", "Mars", None))
+        self.comboBox_mois.setItemText(3, _translate("ParamWindow", "Avril", None))
+        self.comboBox_mois.setItemText(4, _translate("ParamWindow", "Mai", None))
+        self.comboBox_mois.setItemText(5, _translate("ParamWindow", "Juin", None))
+        self.comboBox_mois.setItemText(6, _translate("ParamWindow", "Juillet", None))
+        self.comboBox_mois.setItemText(7, _translate("ParamWindow", "Août", None))
+        self.comboBox_mois.setItemText(8, _translate("ParamWindow", "Septembre", None))
+        self.comboBox_mois.setItemText(9, _translate("ParamWindow", "Octobre", None))
+        self.comboBox_mois.setItemText(10, _translate("ParamWindow", "Novembre", None))
+        self.comboBox_mois.setItemText(11, _translate("ParamWindow", "Décembre", None))
         
         
-        self.comboBox_touffu.setItemText(0, _translate("MainWondow", "Très peu touffu", None))
-        self.comboBox_touffu.setItemText(1, _translate("MainWondow", "Peu touffu", None))
-        self.comboBox_touffu.setItemText(2, _translate("MainWondow", "Moyen moyen", None))
-        self.comboBox_touffu.setItemText(3, _translate("MainWondow", "Pas mal", None))
-        self.comboBox_touffu.setItemText(4, _translate("MainWondow", "Très Touffu", None))
-        
-        
-        self.menuFds.setTitle(_translate("MainWindow", "Fichier", None))
-        self.menuEdition.setTitle(_translate("MainWindow", "Edition", None))
-        self.menuA_propos.setTitle(_translate("MainWindow", "A propos", None))
-        self.actionFichier.setText(_translate("MainWindow", "Fichier", None))
-        self.actionNouveau.setText(_translate("MainWindow", "Nouveau", None))
+        self.comboBox_touffu.setItemText(0, _translate("ParamWindow", "Très peu touffu", None))
+        self.comboBox_touffu.setItemText(1, _translate("ParamWindow", "Peu touffu", None))
+        self.comboBox_touffu.setItemText(2, _translate("ParamWindow", "Moyen moyen", None))
+        self.comboBox_touffu.setItemText(3, _translate("ParamWindow", "Pas mal", None))
+        self.comboBox_touffu.setItemText(4, _translate("ParamWindow", "Très Touffu", None))
         
     def requete(self):
         self.temp_rentree = float(self.temp_int.text()) + 273
@@ -273,8 +246,8 @@ class Ui_MainWindow(object):
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
-    MainWindow = QtGui.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    ParamWindow = QtGui.QDialog()
+    ui = Ui_Param()
+    ui.setupUi(ParamWindow, "")
+    ParamWindow.show()
     sys.exit(app.exec_())
