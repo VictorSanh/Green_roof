@@ -5,7 +5,7 @@
 from Roof_model import weather_data
 from Roof_model import Environnement, GreenRoof
 from PyQt4 import QtCore, QtGui
-
+import last_fenetre
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -59,7 +59,6 @@ class Ui_Param(object):
         self.monBackground.setGeometry(QtCore.QRect(0, 0, 824, 500))
         self.monBackground.setMinimumSize(QtCore.QSize(824, 500))
         self.monBackground.setMaximumSize(QtCore.QSize(824, 500))
-#        self.monBackground.setText(_fromUtf8(""))
         self.monBackground.setPixmap(QtGui.QPixmap(_fromUtf8("donnees.jpg")))
         self.monBackground.setScaledContents(True)
         self.monBackground.setWordWrap(False)
@@ -240,7 +239,7 @@ class Ui_Param(object):
         self.comboBox_touffu.setItemText(4, _translate("ParamWindow", "Très Touffu", None))
         
     def requete(self):
-        print("coucou")
+        print("coucou xavier")
         temp_rentree = float(self.doubleSpinBox_temp.value()) + 273
         hauteur_rentree = float(self.doubleSpinBox_haut.value())
         mois_rentree = int(convert_mois(str(self.comboBox_mois.currentText())))
@@ -250,7 +249,12 @@ class Ui_Param(object):
         
         env = Environnement(self.latlng['lng'], self.latlng['lat'], mois_rentree, 15)
         roof = GreenRoof(2/3*epaiss_rentree, 1/3*epaiss_rentree, 0.05, touffu_rentree, temp_rentree)      
-        print(roof.calcule_diff_finies_lentes(env))
+        resultat = roof.calcule_diff_finies_lentes(env)
+        
+        resultWindow = QtGui.QDialog()
+        ui = last_fenetre.Ui_Result()
+        ui.setupUi(resultWindow, resultat)
+        resultWindow.exec_() 
         
 if __name__ == "__main__":
     import sys
