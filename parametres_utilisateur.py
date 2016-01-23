@@ -208,6 +208,7 @@ class Ui_Param(object):
     def retranslateUi(self, ParamWindow):
         ParamWindow.setWindowTitle(_translate("ParamWindow", "ParamWindow", None))
         self.pushButton.setText(_translate("ParamWindow", "Calcul", None))
+        self.pushButton.clicked.connect(lambda: self.requete())
         
         
         self.temp_int.setText(_translate("ParamWindow", "Température intérieure (°C)", None))
