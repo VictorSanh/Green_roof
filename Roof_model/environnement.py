@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from weather_data import DonneesMeteo
-from weather_data import Irradiance
+from .weather_data import DonneesMeteo
+from .weather_data import Irradiance
 
 class Environnement(DonneesMeteo, Irradiance):
     """

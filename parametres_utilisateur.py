@@ -2,6 +2,7 @@
 
 #Programme générant fenêtre graphique pour récupérer les données utilisateurs
 
+from Roof_model import weather_data
 from Roof_model import Environnement, GreenRoof
 from PyQt4 import QtCore, QtGui
 
@@ -52,7 +53,7 @@ class Ui_Param(object):
         ParamWindow.resize(824, 500)
         ParamWindow.setMouseTracking(True)
         
-        self.latlng= = latlng
+        self.latlng = latlng
         
         self.monBackground = QtGui.QLabel(ParamWindow)
         self.monBackground.setGeometry(QtCore.QRect(0, 0, 824, 500))
@@ -244,7 +245,7 @@ class Ui_Param(object):
         epaiss_rentree = float(self.epaiss_toit.text()*10)
         touffu_rentree = int(convert_touffu(self.touffu.text()))
         surface_rentree = float(self.surface.text())
-        
+        print("coucou")
         env = Environnement(self.latlng['lng'], self.latlng['lat'], mois_rentree, 15)
         roof = GreenRoof(2/3*epaiss_rentree, 1/3*epaiss_rentree, 0.05, touffu_rentree, temp_rentree)      
         print(roof.calcule_diff_finies_lentes(env))

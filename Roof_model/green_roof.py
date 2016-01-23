@@ -9,7 +9,7 @@ CLASS GREEN ROOF
 # Bibliothèque
 
 import numpy as np
-from environnement import Environnement
+from .environnement import Environnement
 
 # Pas d'espace
 DZ = 5e-3
