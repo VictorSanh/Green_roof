@@ -7,7 +7,11 @@
 #
 # WARNING! All changes made in this file will be lost!
 
+import geolocalisation
+import confirmation
+import fenetreErreur
 from PyQt4 import QtCore, QtGui
+from urllib.error import URLError, HTTPError
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -23,6 +27,7 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
@@ -33,6 +38,7 @@ class Ui_MainWindow(object):
 ""))
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
+        
         self.monBackground = QtGui.QLabel(self.centralwidget)
         self.monBackground.setGeometry(QtCore.QRect(0, 0, 901, 551))
         self.monBackground.setText(_fromUtf8(""))
@@ -40,6 +46,7 @@ class Ui_MainWindow(object):
         self.monBackground.setScaledContents(True)
         self.monBackground.setWordWrap(False)
         self.monBackground.setObjectName(_fromUtf8("monBackground"))
+        
         self.monAdresse = QtGui.QLineEdit(self.centralwidget)
         self.monAdresse.setGeometry(QtCore.QRect(90, 440, 671, 91))
         self.monAdresse.setMaximumSize(QtCore.QSize(700, 200))
@@ -53,6 +60,9 @@ class Ui_MainWindow(object):
         self.monAdresse.setReadOnly(False)
         self.monAdresse.setCursorMoveStyle(QtCore.Qt.VisualMoveStyle)
         self.monAdresse.setObjectName(_fromUtf8("monAdresse"))
+        self.monAdresse.returnPressed.connect(lambda: self.requete())
+        
+        
         self.pushButton = QtGui.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(780, 460, 111, 51))
         self.pushButton.setStyleSheet(_fromUtf8("background-color:rgb(51,255,51);\n"
@@ -61,19 +71,21 @@ class Ui_MainWindow(object):
 "border-top-color: rgb(121, 255, 229);\n"
 "border-radius: 10px;"))
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
+        self.pushButton.clicked.connect(lambda: self.requete())        
+        
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 900, 21))
         self.menubar.setObjectName(_fromUtf8("menubar"))
-        self.menuFIchier = QtGui.QMenu(self.menubar)
-        self.menuFIchier.setObjectName(_fromUtf8("menuFIchier"))
+        self.menuFichier = QtGui.QMenu(self.menubar)
+        self.menuFichier.setObjectName(_fromUtf8("menuFichier"))
         self.menuA_propos = QtGui.QMenu(self.menubar)
         self.menuA_propos.setObjectName(_fromUtf8("menuA_propos"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
-        self.menubar.addAction(self.menuFIchier.menuAction())
+        self.menubar.addAction(self.menuFichier.menuAction())
         self.menubar.addAction(self.menuA_propos.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -85,8 +97,53 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
         self.monAdresse.setPlaceholderText(_translate("MainWindow", "Entrez votre adresse complète...", None))
         self.pushButton.setText(_translate("MainWindow", "Calcul", None))
-        self.menuFIchier.setTitle(_translate("MainWindow", "FIchier", None))
+        self.menuFichier.setTitle(_translate("MainWindow", "Fichier", None))
         self.menuA_propos.setTitle(_translate("MainWindow", "A propos", None))
+
+    def requete(self):
+        self.adresse_rentree=str(self.monAdresse.text())
+        
+        try:
+            Fichier = geolocalisation.geocode(self.adresse_rentree)
+            pos = geolocalisation.trouve_en_france(Fichier)        
+            adresseGoogleFormated = geolocalisation.addresse_formatee(Fichier, pos)
+        except geolocalisation.ZeroResult:
+            #Aucun résultat trouvé par Google Maps, l'adresse semble être incorrecte
+            erreurWindow = QtGui.QDialog()
+            uierreur = fenetreErreur.Ui_fenetreErreur()
+            uierreur.setupUi(erreurWindow, "Adresse non trouvée. Revoir l'adresse.")
+            erreurWindow.exec_()
+        except geolocalisation.ZeroResultFrance:
+            #Aucun résultat trouvé en France
+            erreurWindow = QtGui.QDialog()
+            uierreur = fenetreErreur.Ui_fenetreErreur()
+            uierreur.setupUi(erreurWindow, "Pas d'adresse trouvée en France. Revoir l'adresse.")
+            erreurWindow.exec_()
+        except HTTPError:
+            #Adresse internet non trouvée
+            erreurWindow = QtGui.QDialog()
+            uierreur = fenetreErreur.Ui_fenetreErreur()
+            uierreur.setupUi(erreurWindow, "Adresse internet non trouvée")
+            erreurWindow.exec_()
+        except URLError:
+            #Pas de connexion internet
+            erreurWindow = QtGui.QDialog()
+            uierreur = fenetreErreur.Ui_fenetreErreur()
+            uierreur.setupUi(erreurWindow, "Pas de connexion internet")
+            erreurWindow.exec_()
+#            erreur.__str__()
+        except:
+            erreurWindow = QtGui.QDialog()
+            uierreur = fenetreErreur.Ui_fenetreErreur()
+            uierreur.setupUi(erreurWindow, "Erreur inconnue")
+            erreurWindow.exec_()        
+        else:
+            latlng = geolocalisation.lat_lng(Fichier, pos)
+        
+            ConfirmationWindow = QtGui.QDialog()
+            ui = confirmation.Ui_Confirmation()
+            ui.setupUi(ConfirmationWindow, adresseGoogleFormated, latlng)
+            ConfirmationWindow.exec_() 
 
 
 if __name__ == "__main__":
