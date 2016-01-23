@@ -10,13 +10,19 @@ import urllib.parse
 import urllib.request
 from urllib.error import URLError, HTTPError
 import json 
+from unidecode import unidecode
 
-class MonException(Exception):
+class ZeroResult(Exception):
     def __init__(self,valeur):
         self.valeur = valeur
     def __imprim__(self):
         return "{}".format(self.valeur)
-        
+
+class ZeroResultFrance(Exception):
+    def __init__(self,valeur):
+        self.valeur = valeur
+    def __imprim__(self):
+        return "{}".format(self.valeur)
 
 #Requete html sur googleapis.com/maps sous la forme suivante :
 #https://maps.googleapis.com/maps/api/geocode/json?address=avenue+blaise+pascal+champs+sur+marnes&sensor=false
@@ -27,6 +33,8 @@ def geocode(addr):
         
         addr_formatee = addr.replace(' ','+')     
         url = ("https://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false" % addr_formatee);        
+        #Gestion des accents : é, à,...        
+        url = unidecode(url)
         reponse = urllib.request.urlopen(url).read()
         #Problème: reponse est de type bytes, et donc json.load() ne peut le lire.        
         #On préfère donc le convertir avant la lecture sous json.        
@@ -40,7 +48,7 @@ def trouve_en_france(fichier):
     et qu'il faut revoir l'adresse entrée. On lève dans ce cas un exception."""
     
     if fichier['status']=="ZERO_RESULTS":
-        raise MonException("Pas de résultat trouvé. Revoir l'adresse.")
+        raise ZeroResult("Pas de résultat")
     else:
         liste_results=fichier['results']
         position=-1
@@ -49,7 +57,7 @@ def trouve_en_france(fichier):
                 if ss_element['short_name']=="FR":
                     position=i
         if position==-1:
-            raise MonException("Pas de résultat trouvé en France. Préciser l'adresse")
+            raise ZeroResultFrance("Pas de résultat en France")
         else:
             return position
 
@@ -69,26 +77,30 @@ def lat_lng(fichier, position):
         
         return fichier['results'][position]['geometry']['location']
         
+        
+#def main(adresse_rentree):
+#    try:
+#        fichier = geocode(adresse_rentree)
+#        pos = trouve_en_france(fichier)
+#    except MonException as erreur:
+#        print(erreur)
+#        erreur.__imprim__()
+#    except HTTPError as erreur:
+#        print(erreur)
+#        erreur.__str__()
+#    except URLError as erreur:
+#        print(erreur)
+#        erreur.__str__()
+#    except:
+#        print("Something went wrong")        
+#    else:
+#        print(addresse_formatee(fichier, pos))
+#        latlng = lat_lng(fichier, pos)
+#        print (latlng['lat'],latlng['lng'])
 
-if __name__=="__main__":
-    try:
-        fichier = geocode("avenue blaise pascal champs sur marne")
-        pos = trouve_en_france(fichier)
-    except MonException as erreur:
-        print(erreur)
-        erreur.__imprim__()
-    except HTTPError as erreur:
-        print(erreur)
-        erreur.__str__()
-    except URLError as erreur:
-        print(erreur)
-        erreur.__str__()
-    except:
-        print("Something went wrong")        
-    else:
-        print(addresse_formatee(fichier, pos))
-        latlng = lat_lng(fichier, pos)
-        print (latlng['lat'],latlng['lng'])
+#
+#if __name__=="__main__":
+#    main()
     
 
 #Il faut donner de la robustesse au code et la gestion des erreurs
