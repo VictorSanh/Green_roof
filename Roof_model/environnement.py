@@ -16,12 +16,12 @@ class Environnement(DonneesMeteo, Irradiance):
         Irradiance.__init__(self, longitude, latitude, mois, jour)
 
     def get_irradiance(self):
-        extraire_irradiance()
-        return str(irradiance)
+        self.extraire_irradiance()
+        return str(self.irradiance)
 
 
 
 if __name__ == "__main__":
     ev = Environnement(48.8534100, 2.3488000, 10, 10)
     print(ev.get_t())
-    print(ev.get_irradiance)
+    print(ev.get_irradiance())

@@ -9,6 +9,7 @@ CLASS GREEN ROOF
 # Bibliothèque
 
 import numpy as np
+from environnement import Environnement
 
 # Pas d'espace
 DZ = 5e-3
@@ -75,7 +76,7 @@ class GreenRoof(object):
         """ Retourne la valeur de la temperature a une hauteur donnee """
         return self.temperature(round(hauteur/DZ))
     
-    def calcule_diff_finies_lentes(self, time1, time2, env):
+    def calcule_diff_finies_lentes(self, env, time1=0, time2=24):
         """ Calcule la consommation d'energie par la methode des 
         differences finies et Euler explicite"""
         
@@ -88,22 +89,31 @@ class GreenRoof(object):
         # Inititalisation de la consommation a 0
         consommation = 0
 
+        _nl1 = self._nl1
+        _nl2 = self._nl2
+        _nl = self._nl
+
+        dt = (time2 - time1)/1000
+
         # Boucle principale
-        for s in np.linspace(time1, time2, 10000):
-            temperature[1:_nl1] += coeff1 * dt/ DZ**2 *(temperature[0:_nl1-1]
-                                                        + temperature[2:_nl1+1]
-                                                        - 2*temperature[1:_nl1])
+        for s in np.linspace(time1, time2, 1000):
+            self.temperature[1:_nl1] = self.temperature[1:_nl1]
+            + (self.temperature[0:_nl1-1]
+               + self.temperature[2:_nl1+1]
+               - 2*self.temperature[1:_nl1]) * coeff1 * dt/ DZ**2
             
-            temperature[_nl1+1:_nl2] = temperature[_nl1+1:_nl2]
-            + coeff2 * dt / DZ**2 *(temperature[_nl1:_nl2-1] + T[_nl1+2:_nl2+1]
-                                    - 2 * temperature[_nl1+1:_nl2])
+            self.temperature[_nl1+1:_nl2] = self.temperature[_nl1+1:_nl2]
+            + coeff2 * dt / DZ**2 *(self.temperature[_nl1:_nl2-1] 
+                                    + self.temperature[_nl1+2:_nl2+1]
+                                    - 2 * self.temperature[_nl1+1:_nl2])
 
-            temperature[0] = (temperature[1] + h * dz * Tin) / (1 + h * dz)
-
+            self.temperature[0] = (h * DZ * self.temperature_interieure + 
+                                   self.temperature[1])/(1 + h * DZ)
+            consommation += 0.1
 
         return consommation
 
-    def calcule_diff_finies_rapides(self, Environnement, time1, time2):
+    def calcule_diff_finies_rapides(self, env, time1=0, time2=24):
         """ Calcule la consommation d'energie par la methode des 
         differences finies et Euler implicite"""
 
@@ -118,16 +128,20 @@ class GreenRoof(object):
 
         # Boucle principale
         for s in np.linspace(time1, time2, 10000):
+            consommation += 0
 
-    def calcule_fourier(self, Environment, time1, tim2):
+        return consommation
+
+    def calcule_fourier(self, env, time1=0, time2=24):
         """ Calcule la consommation d'energie par une méthode de Fourier """
         consommation = 0
         # Boucle principale
         for s in np.linspace(time1, time2, 10000):
-    
+            consommation += 0
+
         return consommation
 
-    def calcule_volumes_finis(self, Environment, time1, tim2):
+    def calcule_volumes_finis(self, env, time1 = 0, time2 = 24):
         """" Calcule la consommation d'energie par une méthode des volumes 
         finis """
 
@@ -142,10 +156,11 @@ class GreenRoof(object):
 
         # Boucle principale
         for s in np.linspace(time1, time2, 10000):
+            consommation += 0
 
         return consommation
 
-    def calcule_elements_finis(self, Environment, time1, tim2):
+    def calcule_elements_finis(self, env, time1=0, time2=24):
         """" Calcule la consommation d'energie par une méthode des elements 
         finis """
 
@@ -160,5 +175,11 @@ class GreenRoof(object):
 
         # Boucle principale
         for s in np.linspace(time1, time2, 10000):
+            consommation += 0
 
         return consommation
+
+if __name__ == "__main__":
+    env = Environnement(48.8534100, 2.3488000, 10, 10)
+    roof = GreenRoof()
+    print(roof.calcule_diff_finies_lentes(env))
