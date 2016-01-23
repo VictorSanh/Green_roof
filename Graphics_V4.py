@@ -101,10 +101,10 @@ class Ui_MainWindow(object):
         self.menuA_propos.setTitle(_translate("MainWindow", "A propos", None))
 
     def requete(self):
-        self.adresse_rentree=str(self.monAdresse.text())
+        adresse_rentree=str(self.monAdresse.text())
         
         try:
-            Fichier = geolocalisation.geocode(self.adresse_rentree)
+            Fichier = geolocalisation.geocode(adresse_rentree)
             pos = geolocalisation.trouve_en_france(Fichier)        
             adresseGoogleFormated = geolocalisation.addresse_formatee(Fichier, pos)
         except geolocalisation.ZeroResult:
@@ -131,7 +131,6 @@ class Ui_MainWindow(object):
             uierreur = fenetreErreur.Ui_fenetreErreur()
             uierreur.setupUi(erreurWindow, "Pas de connexion internet")
             erreurWindow.exec_()
-#            erreur.__str__()
         except:
             erreurWindow = QtGui.QDialog()
             uierreur = fenetreErreur.Ui_fenetreErreur()
