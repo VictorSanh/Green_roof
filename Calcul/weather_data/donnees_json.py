@@ -15,8 +15,8 @@ import math
 from os import path
 from .lambert93 import convert_coord
 
-ressources_dir = path.join(path.dirname(__file__), 'ressources')
-data_base_dir = path.join(path.dirname(__file__), 'data_base')
+ressources_dir = path.join(path.dirname(__file__), 'data/data_towns')
+data_base_dir = path.join(path.dirname(__file__), 'data/data_other')
 
 def detecte_IDstation():
     # Stock dans un dictionnaire les longitudes, latitues et les ID des 
@@ -60,23 +60,23 @@ class DonneesMeteo(object):
     récupère des données météo pour calculer l'isolement de l'installation
     """
 
-    def __init__(self, latitude, longitude, mois, jour):
+    def __init__(self, longitude, latitude, mois, jour):
         """ Initialise l'environment avec la localisation et la date """
-        self.mois = str(mois)
+        self.strmois = str(mois)
         if (jour < 10):
-            self.jour = '0' + '{}'.format(jour)
+            self.strjour = '0' + '{}'.format(jour)
         else:
-            self.jour = str(jour)
-        self.annee = str(2014)
+            self.strjour = str(jour)
+        self.strannee = str(2014)
         self.ID = repere_station(latitude, longitude)
 
     def get_t(self):
         """ Donne la température en Kelvin à un instant donné """
-        annee = self.annee
-        mois = self.mois
-        jour = self.jour
+        strannee = self.strannee
+        strmois = self.strmois
+        strjour = self.strjour
         ID = self.ID
-        s = 'synop.{}{}.csv.gz'.format(annee, mois)
+        s = 'synop.{}{}.csv'.format(strannee, strmois)
         with open(path.join(data_base_dir, s)) as csvfile:
             doc = csv.reader(csvfile, delimiter = ';')
             temp = []
@@ -87,19 +87,19 @@ class DonneesMeteo(object):
                         strheure = str(carac) + '0000'
                     else:
                         strheure = '0' + str(carac) + '0000'
-                    if row[1] == annee + mois + jour + strheure and row[0] == ID: 
+                    if row[1] == strannee + strmois + strjour + strheure and row[0] == ID: 
                         if row[7] == 'mq':
                             raise ValeurNonCommuniquee
                         temp.append(row[7])
         return temp
 
     def get_pres(self):
-        """ Donne la pression à un moment de la journée """
-        annee = self.annee
-        mois = self.mois
-        jour = self.jour
+        """ Donne la pression à un moment de la strjournée """
+        strannee = self.strannee
+        strmois = self.strmois
+        strjour = self.strjour
         ID = self.ID
-        s = 'synop.{}{}.csv.gz'.format(annee, mois)    
+        s = 'synop.{}{}.csv'.format(strannee, strmois)    
         with open(path.join(data_base_dir, s)) as csvfile:
             doc = csv.reader(csvfile, delimiter = ';')
             pres = []
@@ -110,7 +110,7 @@ class DonneesMeteo(object):
                         strheure = str(carac) + '0000'
                     else:
                         strheure = '0' + str(carac) + '0000'
-                    if row[1] == annee + mois + jour + strheure and row[0] == ID:
+                    if row[1] == strannee + strmois + strjour + strheure and row[0] == ID:
                         if row[20] == 'mq':
                             raise ValeurNonCommuniquee
                         pres.append(row[20])
@@ -118,11 +118,11 @@ class DonneesMeteo(object):
         
     def get_humidite(self):
         """ Donne l'humidité ambiante à un instant donné """
-        annee = self.annee
-        mois = self.mois
-        jour = self.jour
+        strannee = self.strannee
+        strmois = self.strmois
+        strjour = self.strjour
         ID = self.ID
-        s = 'synop.{}{}.csv.gz'.format(annee, mois)
+        s = 'synop.{}{}.csv'.format(strannee, strmois)
         with open(path.join(data_base_dir, s)) as csvfile:
             doc = csv.reader(csvfile, delimiter = ';')
             humidite = []
@@ -133,7 +133,7 @@ class DonneesMeteo(object):
                         strheure = str(carac) + '0000'
                     else:
                         strheure = '0' + str(carac) + '0000'
-                    if row[1] == annee + mois + jour + strheure and row[0] == ID: 
+                    if row[1] == strannee + strmois + strjour + strheure and row[0] == ID: 
                         if row[9] == 'mq':
                             raise ValeurNonCommuniquee
                         humidite.append(row[9])

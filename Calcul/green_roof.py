@@ -49,7 +49,7 @@ class GreenRoof(object):
         """ Retourne la valeur de la temperature a une hauteur donnee """
         return self.temperature(round(hauteur/DZ))
     
-    def calcule_diff_finies(self, Environment, time1, time2):
+    def calcule_diff_finies_lentes(self, Environment, time1, time2):
         """ Calcule la consommation d'energie par la methode des 
         differences finies """
         consommation = 0
