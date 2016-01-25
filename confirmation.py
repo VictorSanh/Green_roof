@@ -36,7 +36,7 @@ class Ui_Confirmation(object):
         self.monBackground.setMinimumSize(QtCore.QSize(500, 300))
         self.monBackground.setMaximumSize(QtCore.QSize(500, 300))
         self.monBackground.setText(_fromUtf8(""))
-        self.monBackground.setPixmap(QtGui.QPixmap(_fromUtf8("point_d_interrogation.png")))
+        self.monBackground.setPixmap(QtGui.QPixmap(_fromUtf8("Window/ressources/point_d_interrogation.png")))
         self.monBackground.setScaledContents(True)
         self.monBackground.setWordWrap(False)
         self.monBackground.setObjectName(_fromUtf8("monBackground"))
