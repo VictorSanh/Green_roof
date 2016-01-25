@@ -35,7 +35,7 @@ class Ui_fenetreErreur(object):
         self.monBackground.setMinimumSize(QtCore.QSize(500, 500))
         self.monBackground.setMaximumSize(QtCore.QSize(500, 500))
         self.monBackground.setText(_fromUtf8(""))
-        self.monBackground.setPixmap(QtGui.QPixmap(_fromUtf8("Erreur.jpg")))
+        self.monBackground.setPixmap(QtGui.QPixmap(_fromUtf8("Window/ressources/Erreur.jpg")))
         self.monBackground.setScaledContents(True)
         self.monBackground.setWordWrap(False)
         self.monBackground.setObjectName(_fromUtf8("monBackground"))
