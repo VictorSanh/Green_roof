@@ -42,7 +42,7 @@ class Ui_MainWindow(object):
         self.monBackground = QtGui.QLabel(self.centralwidget)
         self.monBackground.setGeometry(QtCore.QRect(0, 0, 901, 551))
         self.monBackground.setText(_fromUtf8(""))
-        self.monBackground.setPixmap(QtGui.QPixmap(_fromUtf8("Image_Background_Green_Roof.jpg")))
+        self.monBackground.setPixmap(QtGui.QPixmap(_fromUtf8("Window/ressources/Image_Background_Green_Roof.jpg")))
         self.monBackground.setScaledContents(True)
         self.monBackground.setWordWrap(False)
         self.monBackground.setObjectName(_fromUtf8("monBackground"))
