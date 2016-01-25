@@ -59,7 +59,7 @@ class Ui_Param(object):
         self.monBackground.setGeometry(QtCore.QRect(0, 0, 824, 500))
         self.monBackground.setMinimumSize(QtCore.QSize(824, 500))
         self.monBackground.setMaximumSize(QtCore.QSize(824, 500))
-        self.monBackground.setPixmap(QtGui.QPixmap(_fromUtf8("donnees.jpg")))
+        self.monBackground.setPixmap(QtGui.QPixmap(_fromUtf8("Window/ressources/donnees.jpg")))
         self.monBackground.setScaledContents(True)
         self.monBackground.setWordWrap(False)
         self.monBackground.setObjectName(_fromUtf8("monBackground"))
