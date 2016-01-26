@@ -32,14 +32,14 @@ class Ui_Result(object):
         self.printResult.setReadOnly(True)
         self.printResult.setObjectName(_fromUtf8("printResult"))
 
-        self.retranslateUi(ResultWindow, 235)
+        self.retranslateUi(ResultWindow, Res)
         QtCore.QMetaObject.connectSlotsByName(ResultWindow)
 
     def retranslateUi(self, ResultWindow, Res):
         ResultWindow.setWindowTitle(_translate("ResultWindow", "Résultats", None))        
         self.printResult.setText(_translate("ResultWindow", "La consommation \
 énergétique totale de votre domicile est {} kWh. Cela correspond à \
-une dépense de l'ordre de {} Euros.".format(Res, round(Res*0.15030)), None))
+une dépense de l'ordre de {} Euros.".format(round(Res), round(Res*0.15030)), None))
         
 if __name__ == "__main__":
     import sys
