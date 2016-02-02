@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'untitled.ui'
-#
-# Created: Sun Jan 17 22:43:30 2016
-#      by: PyQt4 UI code generator 4.10.4
-#
-# WARNING! All changes made in this file will be lost!
+
 
 import geolocalisation
 import confirmation
@@ -30,6 +26,7 @@ except AttributeError:
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        """Initialisation de fenetre principale de la User Interface et des différents bouttons."""
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(900, 600)
         MainWindow.setMinimumSize(QtCore.QSize(900, 600))
@@ -101,6 +98,10 @@ class Ui_MainWindow(object):
         self.menuA_propos.setTitle(_translate("MainWindow", "A propos", None))
 
     def requete(self):
+        """Envoi de la requête à Google Maps de l'adresse rentrée dans la zone de texte.
+        Gestion des erreurs : pas de résultat, pas de résultat en France, adresse internet non trouvée, 
+        pas de connexion internet ou erreur inconnue.
+        Ouverture d'une fenetre de confirmation."""
         adresse_rentree=str(self.monAdresse.text())
         
         try:
