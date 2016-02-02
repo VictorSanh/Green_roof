@@ -70,3 +70,4 @@ def lat_lng(fichier, position):
         {'lat' : valeur_latitude, 'lng' : valeur_longitude}"""
         
         return fichier['results'][position]['geometry']['location']
+
