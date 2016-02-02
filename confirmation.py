@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'confirmation.ui'
-#
-# Created: Tue Jan 19 16:47:32 2016
-#      by: PyQt4 UI code generator 4.10.4
-#
-# WARNING! All changes made in this file will be lost!
 
 import parametres_utilisateur
 from PyQt4 import QtCore, QtGui
@@ -26,6 +20,7 @@ except AttributeError:
 
 class Ui_Confirmation(object):
     def setupUi(self, Confirmation, adresseGoogleFormated, latlng):
+        """Initialisatino de la fenetre de Confirmation."""
         Confirmation.setObjectName(_fromUtf8("Confirmation"))
         Confirmation.setEnabled(True)
         Confirmation.resize(500, 300)
@@ -81,18 +76,19 @@ class Ui_Confirmation(object):
         self.preciserAdresse.setText(_translate("Confirmation", "Préciser mon adresse...", None))
         self.printAdresse.setText(_translate("Confirmation", adresseGoogleFormated, None))
         
-    def paramUtilisateur(self, latlng):        
+    def paramUtilisateur(self, latlng):
+        """Appel à l'étape suivante si tout est correct : rentrer les données utilisateurs."""
         paramWindow = QtGui.QDialog()
         ui = parametres_utilisateur.Ui_Param()
         ui.setupUi(paramWindow, latlng)
         paramWindow.exec_() 
 
-#if __name__ == "__main__":
-#    import sys
-#    app = QtGui.QApplication(sys.argv)
-#    Confirmation = QtGui.QDialog()
-#    ui = Ui_Confirmation()
-#    ui.setupUi(Confirmation,"Ceci est un test.")
-#    Confirmation.show()
-#    sys.exit(app.exec_())
+if __name__ == "__main__":
+    import sys
+    app = QtGui.QApplication(sys.argv)
+    Confirmation = QtGui.QDialog()
+    ui = Ui_Confirmation()
+    ui.setupUi(Confirmation,"Ceci est un test.")
+    Confirmation.show()
+    sys.exit(app.exec_())
 
