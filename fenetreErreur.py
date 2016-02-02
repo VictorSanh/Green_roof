@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'fenetreErreur.ui'
-#
-# Created: Sat Jan 23 15:00:49 2016
-#      by: PyQt4 UI code generator 4.10.4
-#
-# WARNING! All changes made in this file will be lost!
+
 
 from PyQt4 import QtCore, QtGui
 
@@ -25,6 +21,7 @@ except AttributeError:
 
 class Ui_fenetreErreur(object):
     def setupUi(self, fenetreErreur, nomErreur):
+        """Initilisation de la fenetre d'erreur avec comme texte à afficher nomErreur."""
         fenetreErreur.setObjectName(_fromUtf8("fenetreErreur"))
         fenetreErreur.setEnabled(True)
         fenetreErreur.resize(500, 500)
