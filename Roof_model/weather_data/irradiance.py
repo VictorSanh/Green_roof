@@ -78,5 +78,3 @@ class Irradiance():
                     self.irradiance.append(float(mots[0]))
                 i = i + 1
         return self.irradiance
-
-# problème pour le 31 décembre !!
