@@ -31,8 +31,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(900, 600)
         MainWindow.setMinimumSize(QtCore.QSize(900, 600))
         MainWindow.setMaximumSize(QtCore.QSize(900, 600))
-        MainWindow.setStyleSheet(_fromUtf8("backgound-color:green;\n"
-""))
+        #MainWindow.setStyleSheet(_fromUtf8("backgound-color:green;\n"))
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         

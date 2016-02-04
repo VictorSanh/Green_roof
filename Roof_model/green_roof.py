@@ -9,6 +9,7 @@ CLASS GREEN ROOF
 # Bibliothèque
 
 import numpy as np
+import random as rand
 from scipy.optimize import fsolve
 from .environnement import Environnement
 
@@ -60,6 +61,7 @@ Tsky = 250
 ks = 1.0
 k1 = 1.0
 re = 1000
+epsilon = 0.004
 ha = 2
 
 
@@ -112,7 +114,7 @@ class GreenRoof(object):
         
         # Donnees fournies par l'environnement exterieur
         t_ext = np.array(list(map(float, env.get_t())))
-        print(env.get_irradiance())
+        #print(env.get_irradiance())
         irr_ext = np.array(env.get_irradiance())
         hum_ext = np.array(list(map(float, env.get_humidite())))
         pres_ext = np.array(list(map(float, env.get_pres())))
@@ -135,6 +137,9 @@ class GreenRoof(object):
         tau_s = np.exp(-ks*self._lai)
         tau_1 = np.exp(-k1*self._lai)
 
+        # Random process : the wall
+        consommation += rand.randint(20, 50)    
+
         # Boucle principale
         for s in np.linspace(time1, time2, 1000):
             
@@ -149,7 +154,7 @@ class GreenRoof(object):
                                     + self.temperature[_nl1+2:_nl2+1]
                                     - 2 * self.temperature[_nl1+1:_nl2])
 
-            consommation += h * abs(self.temperature[0] - self.temperature_interieure) * dt * self.surface
+            consommation += epsilon * h * abs(self.temperature[0] - self.temperature_interieure) * dt * self.surface
 
             self.temperature[0] = (h * DZ * self.temperature_interieure + 
                                    self.temperature[1])/(1 + h * DZ)
@@ -165,7 +170,6 @@ class GreenRoof(object):
             Ta = Ta + dt * (2*self._lai*rho_a*c_a/re*(Tc_old - Ta) + hg * (self.temperature[_nl2] - Ta) + ha * (t_ext[s*(t_ext.size - 1)/24] - Ta)) / rho_a / c_a / self._taille_plantes
 
             self.temperature[_nl2] = fsolve(self.Boundary, self.temperature[_nl2], args=(self.temperature[_nl2-1], irr_ext[s/24*(irr_ext.size - 1)], Tc, Ta))[0]
-            
 
         return consommation
 
