@@ -17,11 +17,15 @@ class Environnement(DonneesMeteo, Irradiance):
 
     def get_irradiance(self):
         self.extraire_irradiance()
-        return str(self.irradiance)
+        return self.irradiance
 
 
 
 if __name__ == "__main__":
-    ev = Environnement(48.8534100, 2.3488000, 2, 2)
+    ev = Environnement(48.8534100, 2.3488000, 2, 15)
+    print("Temperature : ")
     print(ev.get_t())
+    print("Pression : ")
+    print(ev.get_pres())
+    print("Irradiance : ")
     print(ev.get_irradiance())

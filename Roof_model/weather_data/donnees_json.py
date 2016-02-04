@@ -89,10 +89,11 @@ class DonneesMeteo(object):
         strjour = self.strjour
         ID = self.ID
         s = 'synop.{}{}.csv'.format(strannee, strmois)
+
+        temp = []
 		
         with open(path.join(data_base_dir, s)) as csvfile:
             doc = csv.reader(csvfile, delimiter = ';')
-            temp = []
             for row in doc:
                 for heure in range(8):
                     valeur_heure = int(3*heure)
@@ -105,6 +106,7 @@ class DonneesMeteo(object):
                     if row[1] == strannee + strmois + strjour + strheure and row[0] == ID: 
                         #On repère l'instant précis ou l'on veut récupérer la donnée puis on la stocke
                         if row[7] == 'mq':
+                            print("Attention !")
                             raise ValeurNonCommuniquee
                         temp.append(row[7])
         #On retourne un tableau un tableau à 8 valeurs car il y a 8 mesures effectuées, à chaque
